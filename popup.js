@@ -1,7 +1,4 @@
-const off = document.getElementById('off');
-const subtle = document.getElementById('subtle');
-const moderate = document.getElementById('moderate');
-const strong = document.getElementById('strong');
+const buttons = document.querySelectorAll('#container button');
 
 function applyConfig(configName) {
 	chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -12,7 +9,10 @@ function applyConfig(configName) {
 	});
 }
 
-off.addEventListener('click', () => applyConfig('off'));
-subtle.addEventListener('click', () => applyConfig('subtle'));
-moderate.addEventListener('click', () => applyConfig('moderate'));
-strong.addEventListener('click', () => applyConfig('strong'));
+buttons.forEach((button) => {
+	button.addEventListener('click', () => {
+		buttons.forEach((btn) => btn.classList.remove('selected'));
+		button.classList.add('selected');
+		applyConfig(button.id);
+	});
+});

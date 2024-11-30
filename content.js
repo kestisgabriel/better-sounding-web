@@ -25,9 +25,9 @@ const audioEffects = {
 	},
 	strong: {
 		highPass: 100,
-		compressor: { threshold: -25, ratio: 3 },
+		compressor: { threshold: -30, ratio: 4 },
 		clarity: { frequency: 3000, gain: 3 },
-		volume: 1.1,
+		volume: 1,
 	},
 };
 
@@ -46,6 +46,7 @@ function applyEffects(config) {
 		clarityEQ = audioContext.createBiquadFilter();
 		clarityEQ.type = 'peaking';
 
+		// connect to audio sources on DOM and apply processing
 		const audioElements = document.querySelectorAll('audio, video');
 		audioElements.forEach((element) => {
 			try {
@@ -57,7 +58,10 @@ function applyEffects(config) {
 					.connect(clarityEQ)
 					.connect(audioContext.destination);
 			} catch (e) {
-				console.warn(`Unable to process element: ${element.src}`, e);
+				console.warn(
+					`Unable to process sound source: ${element.src}`,
+					e,
+				);
 			}
 		});
 

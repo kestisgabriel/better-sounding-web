@@ -3,31 +3,72 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>BetterAudio</title>
+		<title>Better Audio</title>
 		<style>
 			body {
-				font-family: Roboto;
+				font-family: Inter, sans-serif;
+				font-weight: 300;
+				width: 300px;
+			}
+			header {
+				background-color: #d5b0b0;
+			}
+			#logo {
+				background-image: url('icons/128.png');
+				background-size: contain;
+				background-repeat: no-repeat;
+				width: 64px;
+				height: 64px;
+				margin: 0 auto 12px auto;
+			}
+
+			#content {
+				margin: 12px;
 			}
 			h1 {
-				font-size: 18px;
-				margin-bottom: 10px;
+				color: #663535;
+				display: flex;
+				justify-content: center;
+				font-size: 20px;
+				margin-bottom: 12px;
+			}
+
+			#container {
+				display: flex;
+				justify-content: center;
 			}
 			button {
-				border: #6e6c6c 1px solid;
-				border-radius: 2px;
-				margin: 5px;
+				border: #663535 2px solid;
+				border-radius: 3px;
+				margin: 6px;
+				padding: 6px 10px;
 				font-size: 16px;
 				cursor: pointer;
+			}
+			button.selected {
+				background-color: #8d6262;
+				color: white;
+				font-weight: bold;
 			}
 		</style>
 	</head>
 	<body>
-		<h1>Audio Enhancer</h1>
-		<div>
-			<button id="off">Off</button>
-			<button id="subtle">Subtle</button>
-			<button id="moderate">Moderate</button>
-			<button id="strong">Strong</button>
+		<header>
+			<div id="logo"></div>
+		</header>
+
+		<div id="content">
+			<h1>Better Audio</h1>
+			<p>
+				Enhance and normalize volume, clarity, and dynamic range of all
+				browser sounds, for a more consistent web audio experience.
+			</p>
+			<div id="container">
+				<button id="off">Off</button>
+				<button id="subtle">Subtle</button>
+				<button id="moderate">Moderate</button>
+				<button id="strong">Strong</button>
+			</div>
 		</div>
 		<script src="popup.js"></script>
 	</body>
