@@ -1,13 +1,12 @@
 chrome.runtime.onInstalled.addListener(() => {
 	chrome.storage.sync.set({
-		subtle: 80,
-		moderate: 120,
-		strong: 160,
+		off: 0,
+		subtle: 10,
+		moderate: 50,
+		strong: 100,
 	});
 
 	chrome.storage.sync.set({
-		config: 'subtle',
+		config: 'off',
 	});
-
-	console.log('BetterAudio for Chrome extension installed and initialized.');
 });
