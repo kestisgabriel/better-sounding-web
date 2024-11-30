@@ -2,6 +2,7 @@ let audioContext = null;
 let highPassFilter = null;
 let compressor = null;
 let clarityEQ = null;
+let murkinessEQ = null;
 let volume = null;
 
 const audioEffects = {
@@ -9,24 +10,28 @@ const audioEffects = {
 		highPass: 20,
 		compressor: { threshold: 0, ratio: 0 },
 		clarity: { frequency: 3000, gain: 0 },
+		murkiness: { frequency: 400, gain: 0 },
 		volume: 1,
 	},
 	subtle: {
 		highPass: 40,
-		compressor: { threshold: -10, ratio: 1 },
+		compressor: { threshold: -10, ratio: 1.5 },
 		clarity: { frequency: 3000, gain: 1 },
+		murkiness: { frequency: 400, gain: -1 },
 		volume: 1,
 	},
 	moderate: {
 		highPass: 60,
-		compressor: { threshold: -20, ratio: 2 },
+		compressor: { threshold: -15, ratio: 2 },
 		clarity: { frequency: 3000, gain: 2 },
+		murkiness: { frequency: 400, gain: -2 },
 		volume: 1,
 	},
 	strong: {
-		highPass: 100,
-		compressor: { threshold: -30, ratio: 4 },
+		highPass: 80,
+		compressor: { threshold: -20, ratio: 4 },
 		clarity: { frequency: 3000, gain: 3 },
+		murkiness: { frequency: 400, gain: -3 },
 		volume: 1,
 	},
 };
@@ -46,6 +51,9 @@ function applyEffects(config) {
 		clarityEQ = audioContext.createBiquadFilter();
 		clarityEQ.type = 'peaking';
 
+		murkinessEQ = audioContext.createBiquadFilter();
+		murkinessEQ.type = 'peaking';
+
 		// connect to audio sources on DOM and apply processing
 		const audioElements = document.querySelectorAll('audio, video');
 		audioElements.forEach((element) => {
@@ -56,6 +64,7 @@ function applyEffects(config) {
 					.connect(compressor)
 					.connect(volume)
 					.connect(clarityEQ)
+					.connect(murkinessEQ)
 					.connect(audioContext.destination);
 			} catch (e) {
 				console.warn(
@@ -78,6 +87,8 @@ function applyEffects(config) {
 	volume.gain.value = config.volume;
 	clarityEQ.frequency.value = config.clarity.frequency;
 	clarityEQ.gain.value = config.clarity.gain;
+	murkinessEQ.frequency.value = config.murkiness.frequency;
+	murkinessEQ.gain.value = config.murkiness.gain;
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
