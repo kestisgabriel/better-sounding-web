@@ -1,3 +1,4 @@
+const off = document.getElementById('off');
 const subtle = document.getElementById('subtle');
 const moderate = document.getElementById('moderate');
 const strong = document.getElementById('strong');
@@ -11,6 +12,7 @@ function applyConfig(configName) {
 	});
 }
 
+off.addEventListener('click', () => applyConfig('off'));
 subtle.addEventListener('click', () => applyConfig('subtle'));
 moderate.addEventListener('click', () => applyConfig('moderate'));
 strong.addEventListener('click', () => applyConfig('strong'));
